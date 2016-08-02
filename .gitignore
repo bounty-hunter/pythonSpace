@@ -17,8 +17,15 @@ target/
 .project
 
 #IntelliJ Files
-.iml
 
 #GradeFiles
 .gradle
 build
+
+#ActiveMQ Data folder
+activemq-data
+
+#Other Projects
+GenevaAckNackProcessorActive
+GenevaAckNackProcessor-HibernateOnly
+STHAckNackProcessor
