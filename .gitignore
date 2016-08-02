@@ -1,0 +1,20 @@
+#OS Junk Files
+[Tt]humbs.db
+*.DS_Store
+
+#Jar Files
+*.jar
+
+#Maven Target Folder
+target/
+
+#class files
+*.class
+
+#Eclipse Files and Folders
+.settings
+.classpath
+.project
+
+#IntelliJ Files
+.iml
