@@ -18,3 +18,7 @@ target/
 
 #IntelliJ Files
 .iml
+
+#GradeFiles
+.gradle
+build
