@@ -12,11 +12,14 @@ target/
 *.class
 
 #Eclipse Files and Folders
+.metadata
 .settings
 .classpath
 .project
 
 #IntelliJ Files
+.idea
+*.iml
 
 #GradeFiles
 .gradle
@@ -29,3 +32,6 @@ activemq-data
 GenevaAckNackProcessorActive
 GenevaAckNackProcessor-HibernateOnly
 STHAckNackProcessor
+
+#Misc Files
+.recommenders
