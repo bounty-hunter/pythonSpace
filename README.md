@@ -1,4 +1,4 @@
 # pythonSpace
 Python Code Space
 
-Some experimental stuff to test out GIT stash command
+Some experimental stuff to test out GIT stash command in action
