@@ -38,13 +38,16 @@ public class CommonValidatorTest {
             }
         });
 
+        List<String> allUniqueAllocationIds = new ArrayList<>();
+        allUniqueAllocationIds.addAll(newAllocationIdSet);
+        allUniqueAllocationIds.addAll(stagedAllocationIdSet);
+        List<String> allMatchingAllocationIdsFromTB = new ArrayList<>(); //hit DB ("select p.sourceId from PtpTrade where p.sourceId in :ids").setParameter("ids", allUniqueAllocationIds);
+
         //Handle duplicates from DB for NEW trades
         if(!newTrades.isEmpty()) {
-            List<String> matchingAllocationIdsFromTB = new ArrayList<>(); //hit DB ("select p.sourceId from PtpTrade where p.sourceId in :ids").setParameter("ids", newAllocationIdSet);
-
             newTrades.forEach(t -> {
                 if(!"DUP_ALLOC_ID".equalsIgnoreCase(t.getPreErrCode())) {
-                    if(matchingAllocationIdsFromTB.contains(t.getSourceId()))
+                    if(allMatchingAllocationIdsFromTB.contains(t.getSourceId()))
                         t.setPreErrCode("DUP_ALLOC_ID");
                 }
             });
@@ -52,16 +55,15 @@ public class CommonValidatorTest {
 
         if(!stagedTrades.isEmpty()) {
             //Handle Staged Trades attempting action on missing Trades
-            List<String> matchingAllocationIdsFromTB = new ArrayList<>(); //hit DB ("select p.sourceId from PtpTrade where p.sourceId in :ids").setParameter("ids", stagedAllocationIdSet);
-
             //Handle duplicates from DB for Staged trades
+
             List<String> matchingAllocationIdVersionFromTBS = new ArrayList<>(); //hit DB ("select CONCAT(s.sourceId, s.receivedVersion) from StagedPtpTrade s where s.sourceId in :ids").setParameter("ids", stagedAllocationIdSet);
 
             stagedTrades.forEach(t -> {
-                if(!"DUP_ALLOC_ID_VERSION_COMB".equalsIgnoreCase(t.getPreErrCode())) {
-                    if(!matchingAllocationIdsFromTB.contains(t.getSourceId()))
-                        t.setPreErrCode("MISSING_NEW_TRD");
+                if(!allMatchingAllocationIdsFromTB.contains(t.getSourceId()))
+                    t.setPreErrCode("MISSING_NEW_TRD");
 
+                if(!"DUP_ALLOC_ID_VERSION_COMB".equalsIgnoreCase(t.getPreErrCode()) && !"MISSING_NEW_TRD".equalsIgnoreCase(t.getPreErrCode())) {
                     if(matchingAllocationIdVersionFromTBS.contains(t.getSourceId() + t.getCurrentVersion()))
                         t.setPreErrCode("DUP_ALLOC_ID_VERSION_COMB");
                 }
