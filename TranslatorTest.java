@@ -17,7 +17,9 @@ public class TranslatorTest {
         for(QueryResult row : queryResults) {
             Flow flow = null;
 
-            if("N".equalsIgnoreCase(row.getLastAction())) {
+            if("C".equalsIgnoreCase(row.getLastAction()) && !Objects.isNull(row.getAmendsLinkId()))
+                continue;
+            else if("A".equalsIgnoreCase(row.getLastAction())) {
                 flow = new Flow();
                 Workflow workflow = new Workflow();
                 Stream stream = new Stream();
@@ -25,11 +27,14 @@ public class TranslatorTest {
                 flow.setOrigin(row.getSource());
                 flow.set
                  */
-            } else if("A".equalsIgnoreCase(row.getLastAction())) {
+            } else {
                 flow = new Flow();
                 Workflow workflow = new Workflow();
                 Stream stream = new Stream();
-
+                /*
+                flow.setOrigin(row.getSource());
+                flow.set
+                 */
             }
             if(!Objects.isNull(flow))
                 flows.add(flow);
@@ -51,6 +56,7 @@ class QueryResult {
     private String sourceId;
     private String lastAction;
     private String currentVersion;
+    private String amendsLinkId;
     private String jmsMsgId;
     private String msgFromSrc;
     private String msgFromSrcTime;
@@ -108,6 +114,14 @@ class QueryResult {
 
     public void setCurrentVersion(String currentVersion) {
         this.currentVersion = currentVersion;
+    }
+
+    public String getAmendsLinkId() {
+        return amendsLinkId;
+    }
+
+    public void setAmendsLinkId(String amendsLinkId) {
+        this.amendsLinkId = amendsLinkId;
     }
 
     public String getJmsMsgId() {
