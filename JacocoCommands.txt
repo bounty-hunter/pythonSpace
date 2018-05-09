@@ -1,9 +1,0 @@
-https://www.youtube.com/watch?v=lbFu9zzmmN4
-
-
-https://www.mkyong.com/maven/jacoco-java-code-coverage-maven-example/
-
-java -javaagent:C:\\Users\\deban\\jacoco-0.8.1\\lib\\jacocoagent.jar=destfile="C:\\GIT\\execsDir\\JacocoTest.exec",dumponexit=true,output=file -jar C:\\GIT\\JacocoTest\\target\\JacocoTest-1.jar
-
-java -jar "C:\\Users\\deban\\jacoco-0.8.1\\lib\\jacococli.jar" report "C:\\GIT\\execsDir\\JacocoTest.exec" --classfiles "C:\\GIT\\JacocoTest\\target" --html "C:\\GIT\\jacoco-report" --name myReport --sourcefiles "C:\\GIT\\JacocoTest\\src\\main\\java"
-
